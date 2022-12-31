@@ -49,13 +49,13 @@ export class App extends Component {
   onImageClick = el => {
     this.state.images.map(element => {
       if (element.webformatURL === el.target.src) {
-        this.setState({
+        return this.setState({
           isModalOpen: true,
           images: [element],
           modalFormatSrc: element.largeImageURL,
         });
       }
-      return true;
+      return 1;
     });
   };
 
