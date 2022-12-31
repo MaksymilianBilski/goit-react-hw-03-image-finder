@@ -1,15 +1,13 @@
 import { Component } from 'react';
-import { ImageGallery } from 'components/ImageGallery/ImageGallery';
-import * as basicLightbox from 'basiclightbox';
+import css from '../Modal/Modal.module.css';
 
 export class Modal extends Component {
   render() {
-    const { item } = this.props;
+    const { largeImageURL, onClose, onKeyPress } = this.props;
     return (
-      <div class="overlay">
-        modal
-        <div class="modal">
-          <img src={this.props.item.previewURL} alt="" />
+      <div className={css.overlay} onClick={onClose} onKeyDown={onKeyPress}>
+        <div className={css.modal}>
+          <img src={largeImageURL} className={css.modalImg} alt="" />
         </div>
       </div>
     );

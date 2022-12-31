@@ -1,0 +1,19 @@
+.btnWrapper {}
+
+.btn {
+    cursor: pointer;
+    width: 150px;
+    height: 25px;
+}
+
+.btn:hover {
+    transition-duration: 350ms;
+    border-color: black;
+    background-color: grey;
+    color: gold
+}
+
+.btnLabel {
+    font-size: 13px;
+    font-weight: 700;
+}

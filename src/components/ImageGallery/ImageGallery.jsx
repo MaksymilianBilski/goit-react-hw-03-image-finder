@@ -1,33 +1,22 @@
-import { Component } from 'react';
 import { ImageGalleryItem } from 'components/ImageGalleryItem/ImageGalleryItem';
+import { Component } from 'react';
+import css from '../ImageGallery/ImageGallery.module.css';
+import PropTypes from 'prop-types';
 
 export class ImageGallery extends Component {
-  constructor(props) {
-    super(props);
-    this.imgClick = this.imgClick.bind(this);
-  }
-  dataSource = '';
-  imgClick = el => {
-    this.props.items.map(element => {
-      console.log(this.dataSource);
-      if (element.previewURL === el.target.src) {
-        return (this.dataSource = element.webformatURL);
-      }
-    });
-  };
   render() {
-    const { items } = this.props;
+    const { items, handleClick } = this.props;
     return (
-      <ul class="gallery">
+      <ul className={css.gallery} onClick={handleClick}>
         {items.map(el => (
-          <ImageGalleryItem
-            handleCLick={this.imgClick}
-            dataSource={this.dataSource}
-            src={el.previewURL}
-            alt={el.tags}
-          />
+          <ImageGalleryItem src={el.webformatURL} alt={el.tags} />
         ))}
       </ul>
     );
   }
 }
+
+ImageGallery.propTypes = {
+  onClick: PropTypes.func,
+  items: PropTypes.array,
+};
