@@ -55,6 +55,7 @@ export class App extends Component {
           modalFormatSrc: element.largeImageURL,
         });
       }
+      return true;
     });
   };
 
