@@ -4,6 +4,7 @@ import { Searchbar } from './Searchbar/Searchbar';
 import { Modal } from './Modal/Modal';
 import { Component } from 'react';
 import axios from 'axios';
+import { Circles } from 'react-loader-spinner';
 
 export class App extends Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export class App extends Component {
       modalFormatSrc: '',
       isModalOpen: false,
       showBtn: false,
+      isLoading: false,
       key: '30839127-8a41b37b8b94b94b2633e44b5',
     };
     this.onPageChange = this.onPageChange.bind(this);
@@ -36,6 +38,7 @@ export class App extends Component {
       isModalOpen: false,
       modalFormatSrc: '',
       showBtn: true,
+      isLoading: true,
     });
   };
 
@@ -43,6 +46,7 @@ export class App extends Component {
     this.setState({
       page: this.state.page + 1,
       elementsPerPage: this.state.elementsPerPage + 12,
+      isLoading: true,
     });
   };
 
@@ -75,6 +79,9 @@ export class App extends Component {
     if (this.state.images.length === 12) {
       this.setState({ showBtn: true });
     }
+    if (this.state.images.length >= 1) {
+      this.setState({ isLoading: false });
+    }
 
     if (prevState.images === this.state.images) {
       this.setState({
@@ -91,7 +98,24 @@ export class App extends Component {
           items={this.state.images}
           handleClick={this.onImageClick}
         />
-        {this.state.showBtn && <Button handleClick={this.onPageChange} />}
+        {this.state.isLoading ? (
+          <Circles
+            height="80"
+            width="80"
+            color="#4fa94d"
+            ariaLabel="circles-loading"
+            wrapperStyle={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+            wrapperClass=""
+            visible={true}
+          />
+        ) : (
+          <></>
+        )}
+        ;{this.state.showBtn && <Button handleClick={this.onPageChange} />}
         {this.state.isModalOpen && (
           <Modal
             largeImageURL={this.state.modalFormatSrc}
