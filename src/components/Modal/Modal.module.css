@@ -10,8 +10,7 @@
     background-color: rgba(0, 0, 0, 0.8);
 }
 
-.modal {}
-
 .modalImg {
-    max-height: calc(100vh - 60px);
+    max-width: calc(100vw - 50px);
+    max-height: calc(100vh - 30px);
 }
