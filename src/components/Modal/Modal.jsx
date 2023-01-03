@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import css from '../Modal/Modal.module.css';
+import PropTypes from 'prop-types';
 
 export class Modal extends Component {
   render() {
@@ -13,3 +14,9 @@ export class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  onClick: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  src: PropTypes.string,
+};
