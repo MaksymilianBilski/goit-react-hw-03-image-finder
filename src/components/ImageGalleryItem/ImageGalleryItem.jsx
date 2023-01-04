@@ -4,14 +4,10 @@ import css from '../ImageGalleryItem/ImageGalleryItem.module.css';
 
 export class ImageGalleryItem extends Component {
   render() {
+    const { src, alt, handleClick } = this.props;
     return (
-      <li className={css.galleryItem}>
-        <img
-          className={css.galleryImg}
-          onClick={this.props.handleCLick}
-          src={this.props.src}
-          alt={this.props.alt}
-        />
+      <li className={css.galleryItem} onClick={handleClick}>
+        <img className={css.galleryImg} src={src} alt={alt} />
       </li>
     );
   }

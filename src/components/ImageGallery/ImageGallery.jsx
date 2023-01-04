@@ -7,9 +7,13 @@ export class ImageGallery extends Component {
   render() {
     const { items, handleClick } = this.props;
     return (
-      <ul className={css.gallery} onClick={handleClick}>
+      <ul className={css.gallery}>
         {items.map(el => (
-          <ImageGalleryItem src={el.webformatURL} alt={el.tags} />
+          <ImageGalleryItem
+            handleClick={handleClick}
+            src={el.webformatURL}
+            alt={el.tags}
+          />
         ))}
       </ul>
     );

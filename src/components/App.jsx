@@ -20,6 +20,7 @@ export class App extends Component {
     };
     this.onPageChange = this.onPageChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.onModalClose = this.onModalClose.bind(this);
   }
   elementsPerPage = 12;
 
@@ -48,16 +49,13 @@ export class App extends Component {
     this.search();
   };
 
-  onImageClick = el => {
-    this.state.images.map(element => {
-      if (element.webformatURL === el.target.src) {
-        return this.setState({
-          isModalOpen: true,
-          modalFormatSrc: element.largeImageURL,
-        });
-      } else {
-        return null;
-      }
+  onImageClick = src => {
+    const modalFormat = this.state.images.find(
+      el => el.webformatURL === src.target.src
+    );
+    this.setState({
+      isModalOpen: true,
+      modalFormatSrc: modalFormat.largeImageURL,
     });
   };
 
@@ -79,6 +77,7 @@ export class App extends Component {
     const response = await fetchPhotos(searchParams);
     this.setState({
       images: response.data.hits,
+      modalFormatSrc: response.data.hits.map(el => el.largeImageURL),
     });
     if (response.data.hits.length < 12) {
       this.setState({ showBtn: false });
@@ -119,11 +118,6 @@ export class App extends Component {
           <Modal
             largeImageURL={this.state.modalFormatSrc}
             onClose={this.onModalClose}
-            onKeyPress={window.addEventListener('keydown', e => {
-              if (e.code === 'Escape') {
-                this.setState({ isModalOpen: false });
-              }
-            })}
           />
         )}
       </>
