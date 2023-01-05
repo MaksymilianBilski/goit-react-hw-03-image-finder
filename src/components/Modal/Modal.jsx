@@ -28,7 +28,7 @@ export class Modal extends Component {
 }
 
 Modal.propTypes = {
+  onClose: PropTypes.func,
   onClick: PropTypes.func,
-  onKeyDown: PropTypes.func,
-  src: PropTypes.string,
+  largeImageURL: PropTypes.string,
 };

@@ -25,14 +25,12 @@ export class App extends Component {
   elementsPerPage = 12;
 
   onSubmit = evt => {
-    if (evt === undefined) {
-      return;
-    }
     this.search();
     evt.preventDefault();
     this.elementsPerPage = 12;
+
     this.setState({
-      query: evt.target.children[1].value,
+      query: evt.target.search.value,
       isModalOpen: false,
       modalFormatSrc: '',
       showBtn: true,
@@ -60,24 +58,17 @@ export class App extends Component {
   };
 
   onModalClose = e => {
-    if (e.target.nodeName !== 'IMG') {
-      this.setState({ isModalOpen: false });
-    }
+    this.setState({ isModalOpen: false });
   };
 
   async search() {
-    const searchParams = new URLSearchParams({
-      q: this.state.query,
-      page: this.state.page,
-      key: '30839127-8a41b37b8b94b94b2633e44b5',
-      image_type: 'photo',
-      orientation: 'horizontal',
-      per_page: this.elementsPerPage,
-    });
-    const response = await fetchPhotos(searchParams);
+    const response = await fetchPhotos(
+      this.elementsPerPage,
+      this.state.query,
+      this.state.page
+    );
     this.setState({
       images: response.data.hits,
-      modalFormatSrc: response.data.hits.map(el => el.largeImageURL),
     });
     if (response.data.hits.length < 12) {
       this.setState({ showBtn: false });
@@ -113,7 +104,7 @@ export class App extends Component {
             visible={true}
           />
         )}
-        ;{this.state.showBtn && <Button handleClick={this.onPageChange} />}
+        {this.state.showBtn && <Button handleClick={this.onPageChange} />}
         {this.state.isModalOpen && (
           <Modal
             largeImageURL={this.state.modalFormatSrc}

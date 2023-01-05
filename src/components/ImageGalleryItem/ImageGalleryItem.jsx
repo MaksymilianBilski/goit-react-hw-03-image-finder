@@ -16,5 +16,5 @@ export class ImageGalleryItem extends Component {
 ImageGalleryItem.propTypes = {
   src: PropTypes.string,
   alt: PropTypes.string,
-  onClick: PropTypes.func,
+  handleClick: PropTypes.func,
 };
