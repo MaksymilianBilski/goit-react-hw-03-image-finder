@@ -14,13 +14,12 @@ export class Modal extends Component {
   render() {
     const { largeImageURL, onClose } = this.props;
     return (
-      <div
-        className={css.overlay}
-        onClick={onClose}
-        onKeyDown={this.handleKeyDown()}
-      >
-        <div className={css.modal}>
-          <img src={largeImageURL} className={css.modalImg} alt="" />
+      <div>
+        <div onClick={onClose} className={css.overlay}></div>
+        <div onKeyDown={this.handleKeyDown()}>
+          <div className={css.modal}>
+            <img src={largeImageURL} className={css.modalImg} alt="" />
+          </div>
         </div>
       </div>
     );

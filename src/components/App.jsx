@@ -25,10 +25,8 @@ export class App extends Component {
   elementsPerPage = 12;
 
   onSubmit = evt => {
-    this.search();
     evt.preventDefault();
     this.elementsPerPage = 12;
-
     this.setState({
       query: evt.target.search.value,
       isModalOpen: false,
@@ -36,6 +34,7 @@ export class App extends Component {
       showBtn: true,
       isLoading: true,
     });
+    this.search(this.state);
   };
 
   onPageChange = () => {
@@ -44,7 +43,7 @@ export class App extends Component {
       page: this.state.page + 1,
       isLoading: true,
     });
-    this.search();
+    this.search(this.state);
   };
 
   onImageClick = src => {
@@ -61,11 +60,11 @@ export class App extends Component {
     this.setState({ isModalOpen: false });
   };
 
-  async search() {
+  async search(state) {
     const response = await fetchPhotos(
       this.elementsPerPage,
-      this.state.query,
-      this.state.page
+      state.query,
+      state.page
     );
     this.setState({
       images: response.data.hits,
