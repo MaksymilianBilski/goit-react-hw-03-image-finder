@@ -34,7 +34,7 @@ export class App extends Component {
       showBtn: true,
       isLoading: true,
     });
-    this.search(this.state);
+    this.search(this.elementsPerPage, evt.target.search.value, this.state.page);
   };
 
   onPageChange = () => {
@@ -43,7 +43,7 @@ export class App extends Component {
       page: this.state.page + 1,
       isLoading: true,
     });
-    this.search(this.state);
+    this.search(this.elementsPerPage, this.state.query, this.state.page + 1);
   };
 
   onImageClick = src => {
@@ -60,12 +60,8 @@ export class App extends Component {
     this.setState({ isModalOpen: false });
   };
 
-  async search(state) {
-    const response = await fetchPhotos(
-      this.elementsPerPage,
-      state.query,
-      state.page
-    );
+  async search(elementsPerPage, query, page) {
+    const response = await fetchPhotos(elementsPerPage, query, page);
     this.setState({
       images: response.data.hits,
     });
