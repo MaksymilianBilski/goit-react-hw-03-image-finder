@@ -31,7 +31,6 @@ export class App extends Component {
       query: evt.target.search.value,
       isModalOpen: false,
       modalFormatSrc: '',
-      showBtn: true,
       isLoading: true,
     });
     this.search(this.elementsPerPage, evt.target.search.value, this.state.page);
@@ -56,7 +55,7 @@ export class App extends Component {
     });
   };
 
-  onModalClose = e => {
+  onModalClose = () => {
     this.setState({ isModalOpen: false });
   };
 
