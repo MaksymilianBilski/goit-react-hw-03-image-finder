@@ -37,12 +37,12 @@ export class App extends Component {
   };
 
   onPageChange = () => {
-    this.elementsPerPage = this.elementsPerPage + 12;
     this.setState({
       page: this.state.page + 1,
       isLoading: true,
     });
     this.search(this.elementsPerPage, this.state.query, this.state.page + 1);
+    this.elementsPerPage = this.elementsPerPage + 12;
   };
 
   onImageClick = src => {
@@ -83,13 +83,17 @@ export class App extends Component {
           items={this.state.images}
           handleClick={this.onImageClick}
         />
-        {this.state.isLoading ?? (
+        {this.state.isLoading && (
           <Circles
             height="80"
             width="80"
             color="#4fa94d"
             ariaLabel="circles-loading"
             wrapperStyle={{
+              position: 'fixed',
+              left: '50%',
+              top: '50%',
+              transition: '(-50%, -50%)',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',

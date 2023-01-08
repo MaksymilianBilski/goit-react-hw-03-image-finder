@@ -21,6 +21,8 @@ export class ImageGallery extends Component {
 }
 
 ImageGallery.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)),
+  items: PropTypes.arrayOf(
+    PropTypes.shape({ webformatURL: PropTypes.string, tags: PropTypes.string })
+  ),
   handleClick: PropTypes.func,
 };
