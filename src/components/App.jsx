@@ -5,6 +5,7 @@ import { Modal } from './Modal/Modal';
 import { Component } from 'react';
 import { fetchPhotos } from '../components/services/fetchPhotos';
 import { Loader } from './Loader/Loader';
+import { Notify } from 'notiflix';
 
 export class App extends Component {
   constructor(props) {
@@ -37,12 +38,12 @@ export class App extends Component {
   };
 
   onPageChange = () => {
+    this.elementsPerPage = this.elementsPerPage + 12;
     this.setState({
       page: this.state.page + 1,
       isLoading: true,
     });
     this.search(this.elementsPerPage, this.state.query, this.state.page + 1);
-    this.elementsPerPage = this.elementsPerPage + 12;
   };
 
   onImageClick = src => {
@@ -72,6 +73,9 @@ export class App extends Component {
     }
     if (response.data.hits.length >= 1 || response.data.hits.length === 0) {
       this.setState({ isLoading: false });
+    }
+    if (response.data.hits.length === 0) {
+      Notify.failure("Didn't find any matches!");
     }
   }
 
