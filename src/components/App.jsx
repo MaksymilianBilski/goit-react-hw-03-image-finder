@@ -5,6 +5,7 @@ import { Modal } from './Modal/Modal';
 import { Component } from 'react';
 import { Circles } from 'react-loader-spinner';
 import { fetchPhotos } from '../components/services/fetchPhotos';
+import { Loader } from './Loader/Loader';
 
 export class App extends Component {
   constructor(props) {
@@ -83,25 +84,7 @@ export class App extends Component {
           items={this.state.images}
           handleClick={this.onImageClick}
         />
-        {this.state.isLoading && (
-          <Circles
-            height="80"
-            width="80"
-            color="#4fa94d"
-            ariaLabel="circles-loading"
-            wrapperStyle={{
-              position: 'fixed',
-              left: '50%',
-              top: '50%',
-              transition: '(-50%, -50%)',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-            wrapperClass=""
-            visible={true}
-          />
-        )}
+        {this.state.isLoading && <Loader />}
         {this.state.showBtn && <Button handleClick={this.onPageChange} />}
         {this.state.isModalOpen && (
           <Modal
