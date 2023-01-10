@@ -23,27 +23,24 @@ export class App extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.onModalClose = this.onModalClose.bind(this);
   }
-  elementsPerPage = 12;
 
   onSubmit = evt => {
     evt.preventDefault();
-    this.elementsPerPage = 12;
     this.setState({
       query: evt.target.search.value,
       isModalOpen: false,
       modalFormatSrc: '',
       isLoading: true,
     });
-    this.search(this.elementsPerPage, evt.target.search.value, this.state.page);
+    this.search(evt.target.search.value, this.state.page);
   };
 
   onPageChange = () => {
-    this.elementsPerPage = this.elementsPerPage + 12;
     this.setState({
       page: this.state.page + 1,
       isLoading: true,
     });
-    this.search(this.elementsPerPage, this.state.query, this.state.page + 1);
+    this.search(this.state.query, this.state.page + 1);
   };
 
   onImageClick = src => {
@@ -60,10 +57,12 @@ export class App extends Component {
     this.setState({ isModalOpen: false });
   };
 
-  async search(elementsPerPage, query, page) {
-    const response = await fetchPhotos(elementsPerPage, query, page);
-    this.setState({
-      images: response.data.hits,
+  async search(query, page) {
+    const response = await fetchPhotos(query, page);
+    this.setState(prevState => {
+      return {
+        images: [...prevState.images, ...response.data.hits],
+      };
     });
     if (response.data.hits.length < 12) {
       this.setState({ showBtn: false });
