@@ -31,6 +31,7 @@ export class App extends Component {
       isModalOpen: false,
       modalFormatSrc: '',
       isLoading: true,
+      images: [],
     });
     this.search(evt.target.search.value, this.state.page);
   };
